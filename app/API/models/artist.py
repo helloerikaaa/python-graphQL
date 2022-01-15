@@ -18,7 +18,9 @@ class Artist(Base):
             return None
 
         artist = Artist(name=name, listeners=listeners)
-        artist.save()
+        db_session.add(artist)
+        db_session.commit()
+        db_session.refresh(artist)
 
         return artist
 

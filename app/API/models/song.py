@@ -15,10 +15,12 @@ class Song(Base):
     duration: Column(Integer)
 
     def create_song(self, name: str, artist: int, album: int, duration: int):
-        album = Artist(name=name, artist=artist, album=album, duration=duration)
-        album.save()
+        song = Artist(name=name, artist=artist, album=album, duration=duration)
+        db_session.add(song)
+        db_session.commit()
+        db_session.refresh(song)
 
-        return album
+        return song
 
     def get_song(self, _id: int):
         return list(db_session.query(Song).filter_by(Song._id == _id).first())

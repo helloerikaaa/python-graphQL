@@ -15,7 +15,9 @@ class Album(Base):
 
     def create_album(self, name: str, artist: int, year: int):
         album = Artist(name=name, artist=artist, year=year)
-        album.save()
+        db_session.add(album)
+        db_session.commit()
+        db_session.refresh(album)
 
         return album
 
